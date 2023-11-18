@@ -18,8 +18,7 @@ def error_input_format():
 def help() -> str:
     """Получение справки о доступных командах"""
 
-    commands_list = ['Вывести - просмотреть весь список', 'Значение - просмотреть значение элемента в списке', 'Добавить - добавить элемент в список',
-                     'Удалить - удалить элемент из списка', 'Изменить - изменить значение элемента в списке', 'Стоп - завершить работу программы']
+    commands_list = ['Вывести - просмотреть весь список', 'Значение - просмотреть значение элемента в списке', 'Добавить - добавить элемент в список', 'Удалить - удалить элемент из списка', 'Изменить - изменить значение элемента в списке', 'Стоп - завершить работу программы']
 
     return "Список команд для работы с программой:" + "\n" + "\n".join(commands_list)
 
@@ -96,8 +95,7 @@ def main():
             index_number = int(input("Введите номер элемента: ").lower()) - 1
 
             try:
-                print(f"Элемент под номером {index_number + 1}: \n Название: {
-                      view_element(index_number)[0]} \n Автор: {view_element(index_number)[1]}")
+                print(f"Элемент под номером {index_number + 1}: \n Название: {view_element(index_number)[0]} \n Автор: {view_element(index_number)[1]}")
             except IndexError:
                 print(f"Элемента с номером {index_number} нет в списке")
         elif "добавить" in commands:
@@ -118,14 +116,13 @@ def main():
                       traning_list}")
         elif "удалить" in commands:
             index_number = input("Введите индекс удаляемого элемента: ")
-            try:
+            if 0 <= index_number <= len(traning_list):
                 index_number = int(index_number)
                 if 0 <= index_number <= len(traning_list):
-                    print(f"Элемент {delete_element(
-                        index_number)} успешно удалён!")
+                    print(f"Элемент {delete_element(index_number)} успешно удалён!")
                 else:
                     print(f"Элемента с номером {index_number} нет в списке")
-            except:
+            else:
                 error_input_format()
         elif "изменить" in commands:
             index_number = input(f"{view_list()}\n Введите номер элемента: ")
@@ -135,17 +132,15 @@ def main():
                 if not (0 <= index_number <= len(traning_list)):
                     print(f"Элемента с номером {
                           index_number + 1} нет в списке")
-            except:
+            except IndexError:
                 error_input_format()
-            name_element = str(
-                input("Введите новый элемент в формате: название, автор ('строка,строка'): "))
 
+            name_element = str(input("Введите новый элемент в формате: название, автор ('строка,строка'): "))
             if name_element == "" or name_element.count(",") != 1 or ("" in name_element.split(",")):
                 error_input_format()
             else:
                 change_element(index_number, (name_element).split(","))
-                print(f"Элемент {name_element} изменён. Список обновлен: \n{
-                      view_list()}")
+                print(f"Элемент {name_element} изменён. Список обновлен: \n{view_list()}")
 
         elif "стоп" in commands:
             break
@@ -154,7 +149,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\n До встречи!")
+    main()
