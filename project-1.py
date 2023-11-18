@@ -1,23 +1,38 @@
 from typing import NoReturn
 
-traning_list = [['Гарри Поттер и философский камень', 'Джоан Роулинг'], ['Убить пересмешника', 'Харпер Ли'], ['Война и мир', 'Лев Толстой'], ['Мцыри', 'Михаил Лермонтов']]
+
+traning_list = [
+    ['Гарри Поттер и философский камень', 'Джоан Роулинг'],
+    ['Убить пересмешника', 'Харпер Ли'],
+    ['Война и мир', 'Лев Толстой'],
+    ['Мцыри', 'Михаил Лермонтов']
+]
 
 
 def error_input_format() -> NoReturn:
+    """Вывод ошибки: Неверный формат ввода!"""
+
     print("Неверный формат ввода!")
 
 
-def help():
+def help() -> str:
+    """Получение справки о доступных командах"""
+
     commands_list = ['Вывести - просмотреть весь список', 'Значение - просмотреть значение элемента в списке', 'Добавить - добавить элемент в список',
                      'Удалить - удалить элемент из списка', 'Изменить - изменить значение элемента в списке', 'Стоп - завершить работу программы']
-    return "Список команд для работы с программой:" + "\n" + "\n".join(commands_list.split(", "))
+
+    return "Список команд для работы с программой:" + "\n" + "\n".join(commands_list)
 
 
-def view_list():
+def view_list() -> list:
+    """Получние содержимого списка книг"""
+
     return traning_list
 
 
-def add_element(idx: str or int = None, element: list = None):
+def add_element(idx: str or int = None, element: list = None) -> NoReturn:
+    """Добавить элемент в список книг"""
+
     element = [str(element[0]).lower().title(), str(element[1])]
 
     if idx is None or element is None:
@@ -42,16 +57,24 @@ def add_element(idx: str or int = None, element: list = None):
         return
 
 
-def view_element(idx: int):
+def view_element(idx: int) -> list:
+    """Получение информации о опрелённой книге из списка по индексу"""
+
     return traning_list[idx]
 
 
-def delete_element(idx: int = None):
+def delete_element(idx: int = None) -> list:
+    """Удаление информации и книге из списка по инфексу"""
+
     if idx != None:
         return traning_list.pop(idx)
+    else:
+        error_input_format()
 
 
-def change_element(idx: int = None, element: list = None):
+def change_element(idx: int = None, element: list = None) -> NoReturn:
+    """Изменить информацию о книге по индексу"""
+
     element = [str(element[0]).lower().title(), str(element[1])]
 
     if idx is None or element is None:
@@ -64,7 +87,7 @@ def change_element(idx: int = None, element: list = None):
 def main() -> NoReturn:
     while True:
         print(help())
-        view_list()
+
         commands = input('Введите команду: ').lower().strip()
 
         if "вывести" in commands:
@@ -73,8 +96,8 @@ def main() -> NoReturn:
             index_number = int(input("Введите номер элемента: ").lower()) - 1
 
             try:
-                print(f"Элемент под номером {index_number + 1}: \nНазвание: {
-                      view_element(index_number)[0]} \nАвтор: {view_element(index_number)[1]}")
+                print(f"Элемент под номером {index_number + 1}: \n Название: {
+                      view_element(index_number)[0]} \n Автор: {view_element(index_number)[1]}")
             except IndexError:
                 print(f"Элемента с номером {index_number} нет в списке")
         elif "добавить" in commands:
@@ -127,12 +150,11 @@ def main() -> NoReturn:
         elif "стоп" in commands:
             break
         else:
-            print(f"Error: Команда [{commands}] не распознана!")
+            print(f"Ошибка: Команда [{commands}] не распознана!")
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nДо встречи!")
-    exit()
+        print("\n До встречи!")
