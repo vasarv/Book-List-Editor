@@ -9,7 +9,7 @@ traning_list = [
 ]
 
 
-def error_input_format() -> NoReturn:
+def error_input_format():
     """Вывод ошибки: Неверный формат ввода!"""
 
     print("Неверный формат ввода!")
@@ -30,7 +30,7 @@ def view_list() -> list:
     return traning_list
 
 
-def add_element(idx: str or int = None, element: list = None) -> NoReturn:
+def add_element(idx: str or int = None, element: list = None):
     """Добавить элемент в список книг"""
 
     element = [str(element[0]).lower().title(), str(element[1])]
@@ -72,7 +72,7 @@ def delete_element(idx: int = None) -> list:
         error_input_format()
 
 
-def change_element(idx: int = None, element: list = None) -> NoReturn:
+def change_element(idx: int = None, element: list = None):
     """Изменить информацию о книге по индексу"""
 
     element = [str(element[0]).lower().title(), str(element[1])]
@@ -84,7 +84,7 @@ def change_element(idx: int = None, element: list = None) -> NoReturn:
     traning_list[idx] = element
 
 
-def main() -> NoReturn:
+def main():
     while True:
         print(help())
 
