@@ -1,6 +1,3 @@
-from typing import NoReturn
-
-
 traning_list = [
     ['Гарри Поттер и философский камень', 'Джоан Роулинг'],
     ['Убить пересмешника', 'Харпер Ли'],
@@ -8,6 +5,12 @@ traning_list = [
     ['Мцыри', 'Михаил Лермонтов']
 ]
 
+def to_int(input_str: str = None) -> int:
+    try:
+        return int(input_str)
+    except ValueError:
+        error_input_format()
+        return None
 
 def error_input_format():
     """Вывод ошибки: Неверный формат ввода!"""
@@ -94,9 +97,9 @@ def main():
         elif "значение" in commands:
             index_number = int(input("Введите номер элемента: ").lower()) - 1
 
-            try:
+            if 0 <= index_number <= len(traning_list):
                 print(f"Элемент под номером {index_number + 1}: \n Название: {view_element(index_number)[0]} \n Автор: {view_element(index_number)[1]}")
-            except IndexError:
+            else:
                 print(f"Элемента с номером {index_number} нет в списке")
         elif "добавить" in commands:
             name_element = str(input(
@@ -126,14 +129,14 @@ def main():
                 error_input_format()
         elif "изменить" in commands:
             index_number = input(f"{view_list()}\n Введите номер элемента: ")
-            try:
-                index_number = int(index_number) - 1
 
-                if not (0 <= index_number <= len(traning_list)):
-                    print(f"Элемента с номером {
-                          index_number + 1} нет в списке")
-            except IndexError:
-                error_input_format()
+            if (index_number := to_int(index_number)) == None:
+                continue
+            
+            index_number -= 1
+
+            if not (0 <= index_number <= len(traning_list)):
+                print(f"Элемента с данным номером нет в списке")
 
             name_element = str(input("Введите новый элемент в формате: название, автор ('строка,строка'): "))
             if name_element == "" or name_element.count(",") != 1 or ("" in name_element.split(",")):
